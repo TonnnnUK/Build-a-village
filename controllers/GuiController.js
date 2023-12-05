@@ -5,6 +5,7 @@ import Building from '../entities/buildings/Building';
 class GuiController {
 
     constructor(GameState){
+        this.GameState = GameState;
         this.scene = GameState.scene;
         this.cameraController = GameState.camera;
         this.world = GameState.world;
@@ -16,7 +17,7 @@ class GuiController {
     async setupGameMenu(){
 
         this.ui.idealWidth = 1600;
-        this.ui.renderAtIdealSize = true;
+        this.ui.renderAtIdealSize = false;
         
         this.menu = await this.ui.parseFromURLAsync("../gui/json/guiTexture2.json");
 
@@ -41,7 +42,7 @@ class GuiController {
         });
 
         buildButton.onPointerUpObservable.add( () => {
-            let building = new Building(this.world, 'House');
+            let building = new Building(this.GameState, 'House');
         });
 
     }
@@ -107,14 +108,13 @@ class GuiController {
                 var label = new TextBlock();
                 label.text = selectedMesh.entity.name;
                 this.entityInfo.addControl(label);
-
                 break;
             default:
                 console.log('Unknown');
         }
 
         this.entityInfo.linkWithMesh(selectedMesh);   
-        this.entityInfo.linkOffsetY = -50;        
+        this.entityInfo.linkOffsetY = -70;        
     }
 
 }
