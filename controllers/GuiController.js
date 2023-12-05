@@ -105,9 +105,9 @@ class GuiController {
         switch (entityType) {
             case 'Citizen':
                 // console.log('Citizen selected', selectedMesh.entity);
-                var label = new TextBlock();
-                label.text = selectedMesh.entity.name;
-                this.entityInfo.addControl(label);
+                var nameLabel = new TextBlock();
+                nameLabel.text = 'name: '+selectedMesh.entity.name+'job: '+selectedMesh.entity.currentRole;
+                this.entityInfo.addControl(nameLabel);
                 break;
             default:
                 console.log('Unknown');
