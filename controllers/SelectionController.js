@@ -11,6 +11,7 @@ class SelectionController {
         // this.selectedEntity = this.selectEntity();
 
         this.scene.onPointerDown = (e) => {
+            console.log('pointer down yo')
             var hit = this.scene.pick(this.scene.pointerX, this.scene.pointerY);
             if( hit && hit.pickedMesh && hit.pickedMesh.entity ){
                 hit.pickedMesh.selected = true;

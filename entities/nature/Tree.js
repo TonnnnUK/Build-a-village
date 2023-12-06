@@ -1,5 +1,5 @@
 import { StandardMaterial, Texture, Color3, Vector3 } from "@babylonjs/core";
-import treeGenerator from '../generators/treeGenerator';
+import treeGenerator from '../../generators/treeGenerator';
 
 class Tree {
 
@@ -7,8 +7,7 @@ class Tree {
     constructor(GameState){
         this.scene = GameState.scene;
         this.location;
-        this.placed;
-        this.isPickable;
+        this.placed = false;
         this.mesh = this.generateTree();
         this.placeTree();
     }
@@ -54,14 +53,18 @@ class Tree {
             this.mesh.position = this.pick.pickedPoint;
             this.mesh.position.y += 0.5
 
-            this.scene.onPointerDown = (e) => {
-                if ( e.inputIndex == 2 ){ // if mouse left click
-                    this.location = this.mesh.position;
-                    this.placed = true;
-                    this.isPickable = true;
-                    clearInterval(this.intervalId);
-                }
+            this.mesh.isPickable = !this.placed;
 
+            if (!this.placed) {
+                this.scene.onPointerDown = (e) => {
+                    if ( e.inputIndex == 2 ){ // if mouse left click
+                        this.location = this.mesh.position;
+                        this.placed = true;
+                        this.isPickable = true;
+                        clearInterval(this.intervalId);
+                    }
+
+                }
             }
             
         }, 50);

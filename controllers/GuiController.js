@@ -1,7 +1,7 @@
 import { Color3 } from '@babylonjs/core';
 import { AdvancedDynamicTexture, Rectangle, TextBlock, StackPanel, Button, Control } from '@babylonjs/gui'; 
 import Building from '../entities/buildings/Building';
-import Tree from '../entities/Tree';
+import Tree from '../entities/nature/Tree';
 
 class GuiController {
 

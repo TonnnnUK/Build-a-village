@@ -23,22 +23,29 @@ class Building {
         let buildingMaterial = new StandardMaterial("playerMaterial", this.world.scene);
         buildingMaterial.diffuseColor = Color3.Gray();
         building.material = buildingMaterial;
-        building.isPickable = false;
 
         this.intervalId = setInterval(() => {
             this.pick = this.world.scene.pick(this.world.scene.pointerX, this.world.scene.pointerY);
 
-            building.position = this.pick.pickedPoint;
-            building.position.y += 0.5
+            if ( this.pick.pickedMesh.name != building.name){
+                building.position = this.pick.pickedPoint;
+                building.position.y += 0.5
+            }
 
-            this.world.scene.onPointerDown = (e) => {
-                if ( e.inputIndex == 2 ){ // if mouse left click
-                    this.location = building.position;
-                    this.placed = true;
-                    building.isPickable = true;
-                    clearInterval(this.intervalId);
-                }
 
+            // Update isPickable based on the entity's placement status
+            building.isPickable = !this.placed;
+
+            // Check for pointer events only if the entity is not placed
+            if (!this.placed) {
+                this.world.scene.onPointerDown = (e) => {
+                    if (e.inputIndex == 2) { // if mouse left click
+                        this.location = building.position;
+                        this.placed = true;
+                        building.isPickable = true;
+                        clearInterval(this.intervalId);
+                    }
+                };
             }
             
         }, 50);
