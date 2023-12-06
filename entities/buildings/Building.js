@@ -19,9 +19,9 @@ class Building {
         // this.world.scene.cameras[0].inputs.attached.pointers.buttons = [1,2]
         // this.world.scene.cameras[1].inputs.attached.mouse.buttons = [1,2]
 
-        let building = MeshBuilder.CreateBox('building'+this.id, { size: 1, height: 1, width: 1}, this.world.scene);
+        let building = MeshBuilder.CreateBox('building'+this.id, { size: 10, height: 0.1, width: 10}, this.world.scene);
         let buildingMaterial = new StandardMaterial("playerMaterial", this.world.scene);
-        buildingMaterial.diffuseColor = Color3.Blue();
+        buildingMaterial.diffuseColor = Color3.Gray();
         building.material = buildingMaterial;
         building.isPickable = false;
 
@@ -43,9 +43,6 @@ class Building {
             
         }, 50);
 
-        // create raycast from mouse to terrain using posX and posY 
-
-        // make boxmesh follow terrain coordinates
 
     }
 

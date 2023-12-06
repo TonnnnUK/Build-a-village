@@ -18,6 +18,10 @@ function startNewGame() {
     game.runRenderLoop();
     game.handleResize();
 
+    setInterval(() => {
+        game.updateCitizenAI();
+    }, 10000)
+
     welcomeScreen.style.display = 'none';
     canvas.classList.remove('hidden');
 

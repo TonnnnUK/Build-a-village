@@ -1,6 +1,7 @@
 import { Color3 } from '@babylonjs/core';
 import { AdvancedDynamicTexture, Rectangle, TextBlock, StackPanel, Button, Control } from '@babylonjs/gui'; 
 import Building from '../entities/buildings/Building';
+import Tree from '../entities/Tree';
 
 class GuiController {
 
@@ -19,12 +20,13 @@ class GuiController {
         this.ui.idealWidth = 1600;
         this.ui.renderAtIdealSize = false;
         
-        this.menu = await this.ui.parseFromURLAsync("../gui/json/guiTexture2.json");
+        this.menu = await this.ui.parseFromURLAsync("../gui/json/In_Game_GUI.json");
 
         let cameraToggleBtn = this.ui.getControlByName('toggleCamBtn');
         let playerButton = this.ui.getControlByName('playerBtn');
         let colonyButton = this.ui.getControlByName('colonyBtn');
         let buildButton = this.ui.getControlByName('buildBtn');
+        let treeButton = this.ui.getControlByName('treeBtn');
 
         cameraToggleBtn.onPointerUpObservable.add( () => {
             if( this.cameraController.cameraType == 'universal' ){
@@ -44,6 +46,10 @@ class GuiController {
         buildButton.onPointerUpObservable.add( () => {
             let building = new Building(this.GameState, 'House');
         });
+
+        treeButton.onPointerUpObservable.add(() => {
+            let tree = new Tree(this.GameState);
+        })
 
     }
 

@@ -37,6 +37,10 @@ class Game {
             this.GameState.mouse.coordinates();
         });
     }
+
+    updateCitizenAI(){
+        this.GameState.colony.handleTasks();
+    }
     
     handleResize() {
         window.addEventListener('resize', () => {

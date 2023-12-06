@@ -11,7 +11,6 @@ class Colony {
         this.citizens = [];
         this.spawnPlayer();
         this.spawnColony();
-        console.log('colony', this);
     }
 
     spawnPlayer(){
@@ -29,6 +28,14 @@ class Colony {
 
     getPlayer() {
         return this.citizens.find(citizen => citizen.isPlayer === true);
+    }
+
+    handleTasks(){
+        // Loop through orders
+
+        // Assign relevant citizen a task
+
+        
     }
 
     updateCitizensState(){
