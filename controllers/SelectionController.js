@@ -8,12 +8,14 @@ class SelectionController {
         this.world = GameState.world;
         this.GuiController = GameState.gui;
         this.selectedEntity = null;
-        // this.selectedEntity = this.selectEntity();
+        this.initDefaultSelection();
+    }
 
+    initDefaultSelection(){
         this.scene.onPointerDown = (e) => {
-            console.log('pointer down yo')
             var hit = this.scene.pick(this.scene.pointerX, this.scene.pointerY);
             if( hit && hit.pickedMesh && hit.pickedMesh.entity ){
+                
                 hit.pickedMesh.selected = true;
                 this.GuiController.showEntityInfo(hit.pickedMesh);
                 

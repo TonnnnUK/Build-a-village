@@ -1,3 +1,3 @@
 export const Roles = [
-    'cook', 'builder', 'farmer'
+    'labourer', 'cook', 'builder', 'farmer', 'hunter', 'wood worker', 'weaver'
 ]

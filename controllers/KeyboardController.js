@@ -3,6 +3,8 @@ import {
     Axis,
 } from '@babylonjs/core';
 
+import { Inspector } from '@babylonjs/inspector';
+
 class KeyboardController {
 
     constructor(GameState){
@@ -12,8 +14,17 @@ class KeyboardController {
         this.keys = {};
         this.setupKeys();
         this.prevTime = performance.now();
+        this.showInspector = false;
     }
 
+    handleInspector(){
+        this.showInspector = !this.showInspector
+        if( this.showInspector){
+            Inspector.Show(this.scene, {});
+        } else {
+            Inspector.Hide(this.scene, {});
+        }
+    }
 
     setupKeys(){
         // console.log(this.cameraController);
@@ -22,6 +33,11 @@ class KeyboardController {
 
         window.addEventListener('keydown', (event) => {
             this.handleKeyDown(event.key);
+
+            // Show / Hide inspector for debugging
+            if( event.key == 'i'){
+                this.handleInspector();
+            }
         });
         
         window.addEventListener('keyup', (event) => {

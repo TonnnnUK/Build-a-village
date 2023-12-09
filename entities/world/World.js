@@ -12,6 +12,7 @@ class World {
         this.terrain = new Terrain(this.scene);
         this.sky = new Sky(this.scene);
         this.water = new Water(this.scene, this.terrain, this.sky);
+        this.trees = [];
     }
 
 }

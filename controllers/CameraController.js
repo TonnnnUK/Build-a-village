@@ -20,9 +20,19 @@ class CameraController {
 
     setCamera(){
         if (this.cameraType === 'universal') {
+            if( this.camera ){
+                this.universalCam.position = this.camera.position;
+                this.camera.position.y += 15;
+                this.camera.position.x += 25;
+                this.camera.target = this.colony.getPlayer().mesh.position;
+            }
+            
             this.scene.activeCamera = this.universalCam;
             this.camera = this.universalCam;
         } else {
+            if( this.camera ){
+                this.playerCam.position = this.camera.position;
+            }
             this.scene.activeCamera = this.playerCam;
             this.camera = this.playerCam
         }

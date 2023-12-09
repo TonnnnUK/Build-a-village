@@ -1,7 +1,6 @@
 import {
     Engine
 } from '@babylonjs/core';
-import { Inspector } from '@babylonjs/inspector';
 import CameraController from '../controllers/CameraController';
 import Colony from '../entities/civilization/Colony';
 import SelectionController from '../controllers/SelectionController';
@@ -24,7 +23,6 @@ class Game {
         this.GameState.gui = new GuiController(GameState);
         this.GameState.selectionController = new SelectionController(GameState);
         this.GameState.keyboardController = new KeyboardController(GameState);
-        // Inspector.Show(GameState.scene, {});
     }
 
     runRenderLoop() {

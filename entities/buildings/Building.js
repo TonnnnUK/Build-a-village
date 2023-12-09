@@ -1,10 +1,12 @@
 import { MeshBuilder, StandardMaterial, Color3, Vector3 } from "@babylonjs/core";
 import { Helpers } from "../../scripts/Helpers";
+import Game from "../../scripts/Game";
 
 class Building {
 
-    constructor(world, type){
-        this.world = world;
+    constructor(GameState, type){
+        this.GameState = GameState;
+        this.world = GameState.world;
         this.id = Helpers.generateUniqueID();
         this.type = type;
         this.placed = false;
@@ -45,6 +47,8 @@ class Building {
                         building.isPickable = true;
                         clearInterval(this.intervalId);
                     }
+
+                    this.GameState.selectionController.initDefaultSelection();
                 };
             }
             

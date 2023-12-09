@@ -9,4 +9,5 @@ export let GameState = {
     gui: null,
     selectionController: null,
     keyboardController: null,
+    materials: null
 }

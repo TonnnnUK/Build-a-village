@@ -20,6 +20,7 @@ class Citizen {
         this.currentRole = this.createRole();
         this.currentPosition; // player coordinates on map
         this.currentState = 'idle';
+        this.target = null;
         this.currentAnimation;
         this.generateModel();
         this.keybaordController = this.colony.scene
@@ -62,7 +63,7 @@ class Citizen {
             let animation = this.playAnimation('Standing idle');
             let mesh = meshes[0];
             this.mesh = mesh;
-            this.mesh.rotationQuaternion = null;
+            // this.mesh.rotationQuaternion = null;
             
             this.skin = meshes[1];
             this.skin.entity = this;
@@ -70,7 +71,6 @@ class Citizen {
             this.skin.material = new StandardMaterial("humanSkin", this.GameState.world.scene);
 
             if( this.isPlayer ){
-
                 this.skin.material.emissiveColor = new Color3(0, 0, 1);
             } else {
                 this.skin.material.emissiveColor = new Color3(1, 0, 0);
@@ -101,7 +101,7 @@ class Citizen {
     //     return new Vector3(randX, height, randZ)
     // }
 
-    checkInWater(){
+    checkInWater(){ // Todo
         if (this.skin.intersectsMesh(this.GameState.world.water.mesh)){
             console.log('is in water')
             return true;
@@ -115,24 +115,44 @@ class Citizen {
 
         
         if (this.GameState.camera.cameraType === 'player') {
-            let isMoving = false
-            if (this.GameState.keyboardController.keys.w == true ||
-                this.GameState.keyboardController.keys.q == true ||
-                this.GameState.keyboardController.keys.e == true ) {
-                    isMoving = true;
-                }
+            if( this.isPlayer ) {
+                let isMoving = false
+                if (this.GameState.keyboardController.keys.w == true ||
+                    this.GameState.keyboardController.keys.q == true ||
+                    this.GameState.keyboardController.keys.e == true ) {
+                        isMoving = true;
+                    }
+        
+                if (isMoving) {
+                    // Play walking animation
     
-            if (isMoving) {
-                // Play walking animation
-
-                if (this.currentAnimation?.name !== 'Walking') {
-                    this.playAnimation('Walking');
+                    if (this.currentAnimation?.name !== 'Walking') {
+                        this.playAnimation('Walking');
+                    }
+                } else {
+                    // Play idle animation only if not already playing
+                    if (this.currentAnimation?.name !== 'Standing idle') {
+                        this.playAnimation('Standing idle');
+                    }
                 }
-            } else {
-                // Play idle animation only if not already playing
+            }
+        }
+
+        if ( this.currentState == 'walking' ){
+
+            if( Math.abs(this.mesh.position.y - this.target.y) <= 2 &&
+                Math.abs(this.mesh.position.x - this.target.x) <= 2 &&
+                Math.abs(this.mesh.position.z - this.target.z) <= 2
+            ){
                 if (this.currentAnimation?.name !== 'Standing idle') {
                     this.playAnimation('Standing idle');
                 }
+                this.currentState = 'idle';
+            } else {
+                if(this.currentAnimation?.name !== 'Walking') {
+                    this.playAnimation('Walking');
+                }
+                this.mesh.position.addInPlace(this.mesh.forward.scaleInPlace(0.065));
             }
         }
 
@@ -153,10 +173,12 @@ class Citizen {
     }
     
     findAnimation(name){
-        for (let i = 0; i < this.animations.length; i++) {
-            if (this.animations[i].name === name) {
-                this.currentAnimation = this.animations[i];
-                return this.animations[i];
+        if( this.animations ){
+            for (let i = 0; i < this.animations.length; i++) {
+                if (this.animations[i].name === name) {
+                    this.currentAnimation = this.animations[i];
+                    return this.animations[i];
+                }
             }
         }
         // Return null if the animation with the specified name is not found

@@ -5,6 +5,7 @@ class Tree {
 
 
     constructor(GameState){
+        this.GameState = GameState;
         this.scene = GameState.scene;
         this.location;
         this.placed = false;
@@ -62,10 +63,14 @@ class Tree {
                         this.placed = true;
                         this.isPickable = true;
                         clearInterval(this.intervalId);
+                        this.mesh.entity = this;
+                        this.GameState.selectionController.initDefaultSelection();
+                        this.GameState.world.trees.push(this);
                     }
-
                 }
             }
+
+
             
         }, 50);
     }

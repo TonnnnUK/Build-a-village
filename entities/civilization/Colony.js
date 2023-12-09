@@ -31,16 +31,34 @@ class Colony {
     }
 
     handleTasks(){
-        // Loop through orders
 
-        // Assign relevant citizen a task
-
+        console.log('handling tasks');
         
+        // Loop through orders
+        
+        // Assign relevant citizen a task
+        
+        // Test - place tree, find tree, assign citizen, walk to tree
+        if( this.GameState.world.trees.length > 0 ){
+            let coords = this.GameState.world.trees[0].mesh.position;
+
+            let citizen = this.citizens[3];
+
+            citizen.mesh.lookAt(coords, Math.PI);
+
+            citizen.target = coords;
+            citizen.currentState = 'walking';
+            
+        }
+
+
+
     }
 
     updateCitizensState(){
-        let player = this.getPlayer();
-        player.updateCitizensState();
+        this.citizens.forEach((citizen) => {
+            citizen.updateCitizensState();
+        });
     }
 
     updateCitizensHeight(){
