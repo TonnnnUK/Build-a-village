@@ -47,7 +47,7 @@ class CameraController {
         camera.attachControl(this.canvas, true);
         camera.inputs.attached.mouse.buttons = [1,2];
         camera.inputs.addMouseWheel();
-        camera.wheelPrecision = 0.00; //Mouse wheel speed;
+        camera.wheelPrecision = 0.5; //Mouse wheel speed;
         camera.speed = 3;
         camera.lowerRadiusLimit = 5;
         camera.upperRadiusLimit = 1;
